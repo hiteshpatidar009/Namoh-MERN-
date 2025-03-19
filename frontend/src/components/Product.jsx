@@ -3,8 +3,10 @@ import Slider from "react-slick";
 
 import axios from "axios" ;
 import Card from './card';
-import NAMOH1 from '../../public/image/NAMOH1.mp4'
-import NAMOH2 from '../../public/image/NAMOH2.mp4'
+
+import vidimg1 from '../../public/image/vidimg1.jpeg'
+import vidimg2 from '../../public/image/vidimg2.jpeg'
+import Navbar from './Navbar';
 function Product() {
 
   const [spices ,setSpices]=useState([])
@@ -58,10 +60,10 @@ function Product() {
 
   return (
     <>
-    
-    <div className=" max-w-screen-2xl container mx-auto md:px-20 px-4">
-         <div className='mt-28 item-center justify-center text-center'>
-          <h1 className= "text-2xl" > <span className ="text-pink-500">"Welcome" to NAMOH Spices,</span> 
+    <Navbar/>
+    <div className=" max-w-screen-2xl container mx-auto md:px-20 px-4 mt-0">
+         <div className=' item-center justify-center text-center'>
+          <h1 className= "text-2xl p-24" > <span className ="text-pink-500">"Welcome" to NAMOH Spices,</span> 
           <br />where flavor meets freshness! 
            Explore our  curated selection of premium spices <span className ="text-pink-500">sourced from around the world.</span> <br /> <br /></h1>
          
@@ -69,10 +71,12 @@ function Product() {
          <div>
          <Slider {...settings}>
           <div>
-           <video src={NAMOH1} autoPlay ="true" />
+           {/* <video src={NAMOH1} autoPlay ="true" /> */}
+           <img src={vidimg1} alt="" />
            </div>
           <div>
-           <video src={NAMOH2} autoPlay="true" />
+           {/* <video src={NAMOH2} autoPlay="true" /> */}
+           <img src={vidimg2} alt="" />
            </div>
       
             </Slider>
@@ -80,7 +84,7 @@ function Product() {
             <p className ="text-green-500 text-3xl mt-6 ">  "   Discover a world of flavors with our premium spices. Elevate 
             every meal with the freshest ingredients, crafted for 
             culinary adventures in your kitchen!"</p>
-           <div className =" mt-12 grid grid-cols-1 md:grid-cols-4">
+           <div className =" mt-12 grid grid-cols-1 md:grid-cols-3">
                {spices.map ((item)=>(
                < Card key={item.id} item={item}/>))}
            </div>

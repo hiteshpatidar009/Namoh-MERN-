@@ -13,7 +13,7 @@ function Home() {
     <Navbar/>
     <Banner/>
     <Freespices/>
-    <Footer/>
+    
     </>
   )
 }

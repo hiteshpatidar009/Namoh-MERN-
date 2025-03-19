@@ -1,67 +1,190 @@
-import React from 'react'
-import { Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
-function Contact_us() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = data => console.log(data); 
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 
-  return (<>
-    <div className=' flex h-screen items-center justify-center'>
-   
-    <div className ="max-w-screen-2xl md:px-20 px-4 flex flex-col md:flex-row my-20" >
-      <div className="modal-box text-black-800  ">
-          <form onSubmit={handleSubmit(onSubmit)} method="dialog">
-            {/* Close button for modal */}
-            <button type="button" className="btn btn-sm btn-circle btn-ghost absolute right-3 top-4"
-             onClick={() => document.getElementById('my_modal_3').close()}>✕</button>
+function ContactUs() {
+  const [formData, setFormData] = useState({
+    fullname: '',
+    email: '',
+    phone: '',
+    address: '',
+    message: '',
+    feedback: 0,
+  });
 
-            <h3 className="font-bold text-lg text-4xl">Contact-us</h3>
-            <div className='mt-4 space-y-2'>
-      <span >Name</span>
-      < br/>
-      <input type='text' placeholder='Enter your Fullname'className='w-80 px-3 border rounded-md outline-none'
-      {...register("Fullname", { required: true })} /> 
-      {errors.Fullname && <span className="text-red-500">This field is required</span>}
-      </div> 
-            {/* Email */}
-            <div className="mt-6 space-y-3">
-              <span>Email</span><br />
-              <input 
-                type="email" 
-                placeholder="Enter your email" 
-                className="w-80 px-3 border rounded-md outline-none" 
-                {...register("email", { required: true })} 
-              />
-              {errors.email && <span className="text-red-500">This field is required</span>}
+  const [successMsg, setSuccessMsg] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleFeedbackChange = (rating) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      feedback: rating,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:40001/contact/contactSave', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSuccessMsg('Thank you! Your message has been received.');
+        setErrorMsg('');
+        setFormData({
+          fullname: '',
+          email: '',
+          phone: '',
+          address: '',
+          message: '',
+          feedback: 0,
+        });
+      } else {
+        setErrorMsg('Something went wrong. Please try again.');
+        setSuccessMsg('');
+      }
+    } catch (error) {
+      setErrorMsg('An error occurred. Please try again.');
+      setSuccessMsg('');
+    }
+  };
+
+  return (
+    <div className="flex h-screen items-center justify-center bg-gray-100 dark:bg-gray-900 transition-colors duration-300 mt-32">
+      <motion.div
+        className="max-w-lg w-full bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <h3 className="text-3xl font-bold text-center mb-6 text-gray-700 dark:text-white">
+          Contact Us
+        </h3>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Full Name */}
+          <div>
+            <label className="block text-gray-600 dark:text-gray-200">Full Name</label>
+            <input
+              type="text"
+              name="fullname"
+              value={formData.fullname}
+              onChange={handleChange}
+              className="input input-bordered w-full"
+              required
+            />
+          </div>
+
+          {/* Email */}
+          <div>
+            <label className="block text-gray-600 dark:text-gray-200">Email</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="input input-bordered w-full"
+              required
+            />
+          </div>
+
+          {/* Phone Number */}
+          <div>
+            <label className="block text-gray-600 dark:text-gray-200">Phone Number</label>
+            <input
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              className="input input-bordered w-full"
+              required
+            />
+          </div>
+
+          {/* Address */}
+          <div>
+            <label className="block text-gray-600 dark:text-gray-200">Address</label>
+            <input
+              type="text"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+              className="input input-bordered w-full"
+              required
+            />
+          </div>
+
+          {/* Message */}
+          <div>
+            <label className="block text-gray-600 dark:text-gray-200">Message</label>
+            <textarea
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              className="textarea textarea-bordered w-full"
+              required
+            />
+          </div>
+
+          {/* Feedback */}
+          <div>
+            <label className="block text-gray-600 dark:text-gray-200 mb-2">Feedback</label>
+            <div className="flex space-x-2">
+              {[1, 2, 3, 4, 5].map((rating) => (
+                <motion.button
+                  key={rating}
+                  type="button"
+                  onClick={() => handleFeedbackChange(rating)}
+                  className={`w-10 h-10 rounded-full ${
+                    formData.feedback === rating ? 'bg-pink-500 text-white' : 'bg-gray-300 text-gray-700'
+                  } focus:outline-none`}
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  {rating}
+                </motion.button>
+              ))}
             </div>
+          </div>
 
-            {/* Password */}
-            <div className="mt-4 space-y-2">
-              <span>Phone number</span><br />
-              <input 
-                type="password" 
-                placeholder="Enter your phone number" 
-                className="w-80 px-3 border rounded-md outline-none" 
-                {...register("phone number", { required: true })} 
-              />
-              {errors.password && <span className="text-red-500">This field is required</span>}
-            </div>
+          {/* Feedback message */}
+          {successMsg && (
+            <motion.p className="text-green-500 text-center" animate={{ opacity: 1 }} initial={{ opacity: 0 }}>
+              {successMsg}
+            </motion.p>
+          )}
+          {errorMsg && (
+            <motion.p className="text-red-500 text-center" animate={{ opacity: 1 }} initial={{ opacity: 0 }}>
+              {errorMsg}
+            </motion.p>
+          )}
 
-            {/* Button */}
-            <div className="flex justify-around mt-4">
-              <button className="bg-pink-500 text-white rounded-md px-3 py-1 hover:bg-pink-700 duration-200" type="submit">
-              Submit</button>
-              <p>Cancelled <Link to="/" className="underline text-blue-500 cursor-pointer">Cancelled </Link></p>
-            </div>
-          </form>
-        </div>
-      </div>
+          {/* Submit Button */}
+          <div className="flex justify-center">
+            <motion.button
+              type="submit"
+              className="btn btn-primary"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Submit
+            </motion.button>
+          </div>
+        </form>
+      </motion.div>
     </div>
-     
-    
-    </>
-  )
+  );
 }
 
-export default Contact_us
-
+export default ContactUs;

@@ -3,20 +3,25 @@ import axios from "axios" ;
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import Aboutus from "./Aboutus/About"
 
 
-
-import Card from './card';
+import Card from './Card';
+import Product from './Product';
 function Freespices() {
 
   const [spices ,setSpices]=useState([])
+  const [ title ,setTitle]=useState();
+  const [line1 ,setLine1]=useState();
+  const [line2,setLine2]=useState();
+
   useEffect(()=>{
     const getSpices = async()=>{
       try {
          const res = await axios.get("http://localhost:40001/spices");
          console.log(res.data)
          
-         const data=(res.data.filter((Data) => Data.category === "Spices"));
+         const data = res.data.filter((Data) => Data.category.toLowerCase() === "small");
          setSpices(data)
       } catch (error) {
         console.log(error)
@@ -24,7 +29,23 @@ function Freespices() {
     }
     getSpices();
   },[])
-
+  
+  useEffect(() => {
+    const fetchTitle = async () => {
+      try {
+        const res = await axios.get("http://localhost:40001/title/titleShow/");
+        const data = res.data;
+        setTitle(data.title);
+        setLine1(data.line1);
+        setLine2(data.line2);
+        
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchTitle();
+  }, []);
+  
 
     
     
@@ -67,9 +88,9 @@ function Freespices() {
   <>
   
     <div className ="max-w-screen-2xl container mx-auto md:px-20 px-4">
-     <div> <h1 className ="font-samiBold text-4xl pb-5">Big Diwali Sale </h1>
-      <p className="text-2xl text-orange-500"> "Spice Up Your Diwali: Celebrate with Flavors that Ignite the Festivities!" </p> 
-         <p className="text-2xl text-green-500">"This Diwali, Add a Dash of Spice to Your Celebration!"</p>
+     <div> <h1 className ="font-samiBold text-4xl pb-5">{title}</h1>
+      <p className="text-2xl text-orange-500"> {line1} </p> 
+         <p className="text-2xl text-green-500">{line2}</p>
      </div>
       <div>
       <Slider {...settings}>
@@ -81,6 +102,8 @@ function Freespices() {
       </Slider>
      </div>
     </div>
+    <Product/>
+    <Aboutus/>
     </>
   )
 }

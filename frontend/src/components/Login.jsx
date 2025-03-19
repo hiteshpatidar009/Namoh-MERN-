@@ -63,7 +63,7 @@ function Login() {
 
             {/* Password */}
             <div className="mt-4 space-y-2">
-              <label>Password</label><br />
+              <label>Password  </label><br />
               <input
                 type="password"
                 placeholder="Enter your password"
@@ -75,7 +75,9 @@ function Login() {
 
             {/* Button */}
             <div className="flex justify-around mt-4">
-              <button
+              
+              <button 
+              
                 className="bg-pink-500 dark:bg-pink-600 text-white rounded-md px-3 py-1 hover:bg-pink-700 dark:hover:bg-pink-800 duration-200"
                 type="submit"
               >

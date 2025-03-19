@@ -1,36 +1,38 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import cors from "cors"
+import cors from "cors";
+
 import spicesRoute from "./route/spices.router.js";
 import userRoute from "./route/user.route.js";
-const app  = express();
+import festitlerouter from './route/festitlerouter.js';
+import contactroute from "./route/contactroute.js"
+const app = express();
 
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-
+// Config
 dotenv.config();
-
 const PORT = process.env.PORT || 4000;
 const URI = process.env.MongoDBURI;
-// connect to mongodb
-try {
-   mongoose.connect(URI,{
-    useNewUrlParser: true ,
-    useUnifiedTopology: true  
-   });
-   console.log ("Connect to mongoDB");
-} catch (error) {
 
-  console.log ("error:", error);
-
-}
-
-// defind routes
-app.use("/spices",spicesRoute );
-app.use("/user", userRoute);
-
-app.listen(PORT, () => {
-  console.log(`Server is  listening on port ${PORT}`);
+// Connect to MongoDB Atlas
+mongoose.connect(URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 })
+.then(() => console.log("✅ Connected to MongoDB Atlas"))
+.catch((error) => console.log("❌ MongoDB Connection Error:", error.message));
+
+// Routes
+app.use("/spices", spicesRoute);
+app.use("/user", userRoute);
+app.use("/title", festitlerouter);
+app.use("/contact",contactroute);
+
+// Start Server
+app.listen(PORT, () => {
+    console.log(`🚀 Server is listening on port ${PORT}`);
+});

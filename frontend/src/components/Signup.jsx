@@ -34,6 +34,7 @@ function Signup() {
     const userInfo = {
       fullname: data.fullname,
       email: data.email,
+      phone:data.phone,
       password: data.password,
     };
 
@@ -61,16 +62,16 @@ function Signup() {
               {/* Close button */}
               <Link to="/" className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</Link>
 
-              {/* Theme Toggle Button */}
+              {/* Theme Toggle Button
               <button type="button" onClick={toggleTheme} className="center bg-gray-300 dark:bg-gray-700 rounded-full px-2 py-1">
                 {theme === "light" ? "🌙 Dark" : "☀️ Light"}
-              </button>
+              </button> */}
 
               <h3 className="font-bold text-lg">Signup</h3>
               
               {/* Name Input */}
               <div className="mt-4 space-y-2">
-                <label>Name</label>
+                <label className="mr-11">Name</label>
                 <input type="text" placeholder="Enter your Fullname" className="w-80 px-3 border rounded-md outline-none"
                   {...register("fullname", { required: true })} />
                 {errors.fullname && <span className="text-red-500">This field is required</span>}
@@ -78,15 +79,23 @@ function Signup() {
 
               {/* Email Input */}
               <div className="mt-4 space-y-2">
-                <label>Email</label>
+                <label className="mr-12">Email</label>
                 <input type="email" placeholder="Enter your email" className="w-80 px-3 border rounded-md outline-none"
                   {...register("email", { required: true })} />
                 {errors.email && <span className="text-red-500">This field is required</span>}
               </div>
 
+               {/* Phone Number Input */}
+               <div className="mt-4 space-y-2">
+                <label className="mr-4">Phone no.</label>
+                <input type="number" placeholder="Enter your Phone Number" className="w-80 px-3 border rounded-md outline-none"
+                  {...register("phone", { required: true })} />
+                {errors.phone && <span className="text-red-500">This field is required</span>}
+              </div>
+
               {/* Password Input */}
               <div className="mt-4 space-y-2">
-                <label>Password</label>
+                <label className="mr-4">Password</label>
                 <input type="password" placeholder="Enter your password" className="w-80 px-3 border rounded-md outline-none"
                   {...register("password", { required: true })} />
                 {errors.password && <span className="text-red-500">This field is required</span>}
@@ -95,12 +104,9 @@ function Signup() {
               {/* Signup Button and Login Link */}
               <div className="flex justify-around mt-4">
                 <button className="bg-pink-500 text-white rounded-md px-3 py-1 hover:bg-pink-700 duration-200">Signup</button>
-                <p>Have an account? 
-                  <button className="underline text-blue-500 cursor-pointer" 
-                    onClick={() => document.getElementById("my_modal_3").showModal()}>
-                    Login
-                  </button>
-                </p>
+               
+                <p>Have an account? <Link to="/" className="underline text-blue-500">Login</Link></p>
+                
                 <Login />
               </div>
             </form>

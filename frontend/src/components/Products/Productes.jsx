@@ -8,7 +8,7 @@ function Productes() {
   
   return (
     <>
-    <Navbar/>
+    
     <div className ="min-h-screen"><Product/>
       </div>
     <Footer/>
