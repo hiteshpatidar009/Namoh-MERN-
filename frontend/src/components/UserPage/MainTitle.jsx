@@ -25,24 +25,25 @@ function MainTitle() {
         line1:line1,
         line2:line2
     }
-    axios.post("http://localhost:40001/title/titleSave/",obj)
+ 
+    axios.post("/title/titleSave/",obj)
         .then((res)=>{
             alert(res.data)
         }).catch((err)=>{
             alert(err)
         })
-
-   }  
-
-   
+ }
+     
+ 
+    
    const handleDefaultButton =()=>{
 
-    const obj={
-        title:"Hey This is a Default Title",
-        line1:"Hey This is a Default Line 1",
-        line2:"Hey This is a Default Line 2"
+    const obj1={
+        title:"100% Natural & Pure Spices – No Chemicals, Just Flavor",
+        line1:"Say goodbye to artificial additives and fillers",
+        line2:"Enjoy real, natural spices for healthier, tastier cooking"
     }
-    axiosInstance.post("/title/titleSave/",obj)
+    axiosInstance.post("/title/titleSave/",obj1)
         .then((res)=>{
             alert(res.data)
         }).catch((err)=>{s
