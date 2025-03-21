@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../api/axiosInstance.js'; // adjust the path as per your folder structure
 import { motion } from 'framer-motion';
 
 function Contact() {
@@ -9,7 +9,7 @@ function Contact() {
   useEffect(() => {
     const fetchContact = async () => {
       try {
-        const response = await axios.get('http://localhost:40001/contact/contactShow');  
+        const response = await axiosInstance.get('/contact/contactShow');
         setContactData(response.data);
       } catch (err) {
         console.error('Error fetching contact data:', err);

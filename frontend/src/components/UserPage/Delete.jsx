@@ -1,4 +1,5 @@
-import axios from 'axios';
+import axiosInstance from '../../api/axiosInstance.js';
+
 import React, { useState } from 'react'
 
 function Delete() {
@@ -11,7 +12,7 @@ function Delete() {
 
     const handleSubmitButton=()=>{
      
-        axios.delete("http://localhost:40001/spices/delete/"+ sname)
+        axiosInstance.delete("/spices/delete/" + sname)
         .then((res)=>{
             alert(res.data)
         }).catch((err)=>{

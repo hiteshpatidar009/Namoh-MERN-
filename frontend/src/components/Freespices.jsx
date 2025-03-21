@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import axios from "axios" ;
+import axiosInstance from '../api/axiosInstance.js';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -18,7 +18,7 @@ function Freespices() {
   useEffect(()=>{
     const getSpices = async()=>{
       try {
-         const res = await axios.get("http://localhost:40001/spices");
+         const res = await axiosInstance.get("/spices");
          console.log(res.data)
          
          const data = res.data.filter((Data) => Data.category.toLowerCase() === "small");
@@ -33,7 +33,7 @@ function Freespices() {
   useEffect(() => {
     const fetchTitle = async () => {
       try {
-        const res = await axios.get("http://localhost:40001/title/titleShow/");
+        const res = await axiosInstance.get("/title/titleShow/");
         const data = res.data;
         setTitle(data.title);
         setLine1(data.line1);

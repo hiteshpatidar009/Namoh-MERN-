@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import axios from 'axios';
+import axiosInstance from '../api/axiosInstance.js';
 import toast from 'react-hot-toast';
 
 function Login() {
@@ -14,7 +14,7 @@ function Login() {
     };
 
     try {
-      const res = await axios.post("http://localhost:40001/user/login", userInfo);
+      const res = await axiosInstance.post("/user/login", userInfo);
       if (res.data) {
         toast.success('Login Successfully');
         document.getElementById('my_modal_3').close();

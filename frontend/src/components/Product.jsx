@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Slider from "react-slick";
 
-import axios from "axios" ;
-import Card from './card';
+import axiosInstance from '../api/axiosInstance.js';
+import Card from './Card';
 
 import vidimg1 from '../../public/image/vidimg1.jpeg'
 import vidimg2 from '../../public/image/vidimg2.jpeg'
@@ -13,7 +13,7 @@ function Product() {
   useEffect(()=>{
     const getSpices = async()=>{
       try {
-         const res = await axios.get("http://localhost:40001/spices");
+         const res = await axiosInstance.get("/spices");
          console.log(res.data)
          setSpices(res.data)
       } catch (error) {

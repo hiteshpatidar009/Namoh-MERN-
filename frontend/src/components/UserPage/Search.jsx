@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import axios from 'axios';
+import axiosInstance from '../../api/axiosInstance.js';
 
 function Search() {
      
@@ -16,7 +16,7 @@ function Search() {
 
     const handleSearchButton = ()=>{
      
-        axios.get("http://localhost:40001/spices/search/"+sname)
+        axiosInstance.get("/spices/search/"+sname)
         .then((res)=>{
             setSname(res.data.sname);
             setTitle(res.data.title);

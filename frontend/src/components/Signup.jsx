@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Login from './Login';
 import { useForm } from "react-hook-form";
-import axios from "axios";
+import axiosInstance from '../api/axiosInstance.js';
 import toast from 'react-hot-toast';
 
 function Signup() {
@@ -39,7 +39,7 @@ function Signup() {
     };
 
     try {
-      const res = await axios.post("http://localhost:40001/user/signup", userInfo);
+      const res = await axiosInstance.post("/user/signup", userInfo);
       if (res.data) {
         toast.success('Signup Successfully');
         localStorage.setItem("User", JSON.stringify(res.data.user));

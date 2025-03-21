@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from '../../api/axiosInstance.js';
 
 function UserShow() {
   const [blist, setBlist] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:40001/user/show") // Ensure the correct API endpoint
+    axiosInstance
+      .get("/user/show") // Ensure the correct API endpoint
       .then((res) => {
         setBlist(res.data);
       })

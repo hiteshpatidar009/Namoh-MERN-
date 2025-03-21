@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../api/axiosInstance.js';
 
 function Update() {
   const [sname, setSname] = useState('');
@@ -34,8 +34,8 @@ function Update() {
   };
 
   const handleSearchButton = () => {
-    axios
-      .get(`http://localhost:40001/spices/search/${sname}`)
+    axiosInstance
+      .get(`/spices/search/${sname}`)
       .then((res) => {
         setTitle(res.data.title);
         setPacket(res.data.packet);

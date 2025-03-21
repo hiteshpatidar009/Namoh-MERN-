@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import axios from "axios";
+import axiosInstance from '../../api/axiosInstance.js';
 
 
 function MainTitle() {
@@ -42,7 +42,7 @@ function MainTitle() {
         line1:"Hey This is a Default Line 1",
         line2:"Hey This is a Default Line 2"
     }
-    axios.post("http://localhost:40001/title/titleSave/",obj)
+    axiosInstance.post("/title/titleSave/",obj)
         .then((res)=>{
             alert(res.data)
         }).catch((err)=>{s

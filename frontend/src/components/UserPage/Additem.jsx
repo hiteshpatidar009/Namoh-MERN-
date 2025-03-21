@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 
-import axios from 'axios'
+import axiosInstance from '../../api/axiosInstance'; 
+// adjust path if needed
+
 
 function Additem() {
     const [sname , setSname]=useState()
@@ -42,7 +44,7 @@ function Additem() {
         category:category,
         image:image
       }
-      axios.post("http://localhost:40001/spices/save/", obj)
+      axiosInstance.post("/spices/save/", obj)
   
       .then((res)=>{
         alert(res.data)
