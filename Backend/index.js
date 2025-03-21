@@ -11,11 +11,11 @@ const app = express();
 
 // Middleware
 
-
 app.use(cors({
-  origin: ["http://localhost:5173", "https://namoh-spices-frontend.onrender.com"], // example
+  origin: ["http://localhost:5173", "https://namoh-spices-frontend.onrender.com", "https://namoh-mern.vercel.app"], // Add Vercel URL here!
   credentials: true
 }));
+
 
 app.use(express.json());
 
