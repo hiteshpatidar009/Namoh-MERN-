@@ -26,7 +26,7 @@ function MainTitle() {
         line2:line2
     }
  
-    axios.post("/title/titleSave/",obj)
+   axiosInstance.post("/title/titleSave/",obj)
         .then((res)=>{
             alert(res.data)
         }).catch((err)=>{
