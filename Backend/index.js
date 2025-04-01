@@ -12,8 +12,8 @@ const app = express();
 // Middleware
 
 app.use(cors({
-  origin: ["http://localhost:5173", "https://namoh-mern-backend.onrender.com",'https://my-namoh.vercel.app/',
-          "https://my-namoh-4ab88k7hy-hiteshpatidar009s-projects.vercel.app/"], // Add Vercel URL here!
+  origin: ["http://localhost:5173", "https://namoh-mern-backend.onrender.com",'https://my-namoh-git-main-hiteshpatidar009s-projects.vercel.app',
+          "https://my-namoh-4ab88k7hy-hiteshpatidar009s-projects.vercel.app"], // Add Vercel URL here!
   credentials: true
 }));
 
